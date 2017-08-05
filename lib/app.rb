@@ -74,7 +74,7 @@ put '/queue/:name' do
       exchange.publish(params[:data],
         :content_type => 'text/plain',
         :key => mq(params[:name]))
-
+      exchange.wait_for_confirms
       status 201
       body 'SUCCESS'
     end
